@@ -1,5 +1,5 @@
-djangoproject/__pycache__
-hello_world_app/__pycache__
+djangoproject/__pycache__/
+hello_world_app/__pycache__/
 hello_world_app/migrations
 hello_world_app2
 db.sqlite3
