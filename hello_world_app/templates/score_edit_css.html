@@ -1,0 +1,27 @@
+{% comment %} 
+Use the static Template Tag in HTML: In the HTML file, use Django's {% static %} template tag to link the CSS file. 
+{% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Score</title>
+    <link
+      rel="stylesheet"
+      href="{% static '/css/bootstrap.min.css' %}"
+    />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1 class="mb-4">Edit Score</h1>
+      <form method="POST" class="needs-validation">
+        {% csrf_token %}
+        <div class="mb-3">{{ form.as_p }}</div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </div>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
