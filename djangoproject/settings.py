@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hello_world_app',
     'django_extensions',
+    'budget_tracker',
 ]
 
 MIDDLEWARE = [
