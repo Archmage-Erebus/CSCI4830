@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Page</title>
+  </head>
+  <body>
+<h1>New Budget</h1>
+<form method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<table>
+    <tr> <th>Target</th> <th>Balance</th> <th>Start</th> <th>End</th> <th>Actions</th></tr>
+    {% for budget in budgets %}
+    <tr>
+        <td>{{ budget.goal }}</td> <td>{{ budget.balance }}</td> <td>{{ budget.start }}</td> <td>{{ budget.end }}</td>
+        <td>
+            <a href="{% url 'trans_view' budget.id %}">Transactions</a>
+            <a href="{% url 'edit_budget' budget.id %}">Edit</a>
+            <a href="{% url 'delete_budget' budget.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table> </body> </html>

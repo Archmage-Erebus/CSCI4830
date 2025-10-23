@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transactions Page</title>
+  </head>
+  <body>
+    <header><nav>    
+            <a href="{% url 'budget_view' %}">Return to budgets</a>
+    </nav></header> 
+<h1>List of Transactions</h1> <h4></h4>
+<form method="GET">
+    {{ form.as_p }}
+<button type="submit">Filter</button>
+</form>
+<table>
+    <tr> 
+        <th>Name</th> 
+        <th>Amount</th> 
+        <th>Timestamp</th> 
+        <th>Tag</th> 
+        <th>Actions</th> 
+        <th><a href="{% url 'add_trans' id %}">Add</a></th> 
+    </tr>
+    {% for transaction in transactions %}
+    <tr>
+        <td>{{ transaction.name }}</td> 
+        <td>{{ transaction.amount }}</td> 
+        <td>{{ transaction.timestamp }}</td> 
+        <td> {{ transaction.tag }}</td>
+        <td>
+            <a href="{% url 'edit_trans' transaction.id %}">Edit</a>
+            <a href="{% url 'delete_trans' transaction.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <th>Total</th>
+        <th>{{ total }}</th>
+    </tr>
+</table> 
+</body> </html>
