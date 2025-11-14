@@ -55,7 +55,7 @@ TRANSACTION_TYPE = {
 
 class Transaction(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    transact_type = models.CharField(choices=TRANSACTION_TYPE)
+    transaction_type = models.CharField(choices=TRANSACTION_TYPE)
     amount = models.DecimalField(max_digits=19,decimal_places=2)
     description = models.CharField(blank=True, null=True)
     merchant_name = models.CharField(blank=True, null=True)
