@@ -10,12 +10,14 @@ urlpatterns = [
     path('api/accounts/<int:pk>/', views.AccountDetail.as_view(), name='account_detail'),
     path('api/accounts/user/<int:user_id>/',views.AccountListCreate.as_view(), name='account_by_user'),
     path('api/accounts/number/<str:account_number>/',views.AccountDetail.as_view(), name='account_by_number'),
+    path('api/accounts/count/', views.account_count, name='account_count'),
     path('api/transactions/', views.TransactionListCreate.as_view(), name='transaction_list'),
     path('api/transactions/<int:pk>', views.TransactionDetail.as_view(), name='transaction_list'),
     path('api/transactions/account/<int:account_id>', views.TransactionListCreate.as_view(), name='transaction_by_account'),
     path('api/transactions/fraud/<str:fraud_status>', views.TransactionListCreate.as_view(), name='transaction_by_status'),
-    path('api/transactions/high-risk/<int:threshold>', views.HighRiskTransactions, name='transaction_by_risk'),
+    path('api/transactions/high-risk/<threshold>', views.HighRiskTransactions, name='transaction_by_risk'),
     path('api/transactions/recent/<int:fk>', views.RecentTransactions, name='transaction_by_account'),
+    path('api/transactions/count/', views.transaction_count, name='transaction_count'),
     # path('api/users', views.users_list, name="users_list"),
     # path('api/users/<int:user_id>', views.user_view, name="user")
 ]

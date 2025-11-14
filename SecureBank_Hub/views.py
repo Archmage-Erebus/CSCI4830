@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from .models import User, Account, Transaction
 from rest_framework import generics
 from rest_framework.renderers import JSONRenderer
@@ -101,17 +101,28 @@ class TransactionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
+@api_view()
 def HighRiskTransactions(request, threshold):
+    try: 
+        threshold = float(threshold)
+    except:
+        return HttpResponseNotFound()
+
     if request.method == "GET":
         queryset = Transaction.objects.filter(fraud_score__gt=threshold).order_by("-fraud_score")
         serializer = TransactionSerializer(queryset, many=True)
         return Response(serializer.data)
 
+@api_view()
 def RecentTransactions(request, fk):
     if request.method == "GET":
-        queryset = Transaction.objects.filter(user_id=fk).filter(timestamp__gte=(datetime.now()-timedelta(hours=24))).order_by("-timestamp")
+        queryset = Transaction.objects.filter(account_id=fk).filter(timestamp__gte=(datetime.now()-timedelta(hours=24))).order_by("-timestamp")
         serializer = TransactionSerializer(queryset, many=True)
         return Response(serializer.data)
+
+@api_view()
+def transaction_count(request):
+    return Response({Transaction.objects.count()})
 
 # def users_list(request):
 #     if request.method == "GET":

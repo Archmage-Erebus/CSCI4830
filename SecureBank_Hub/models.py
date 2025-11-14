@@ -64,6 +64,6 @@ class Transaction(models.Model):
     ipAddress = models.CharField(blank=True, null=True)
     deviceFingerprint = models.CharField(blank=True, null=True)
     fraud_status = models.CharField(choices=FRAUD_STATUS, default="PENDING")
-    fraud_score = models.IntegerField(blank=True, null=True)
+    fraud_score = models.FloatField(blank=True, null=True)
     fraud_reason = models.CharField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
