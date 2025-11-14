@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'hello_world_app',
     'django_extensions',
     'budget_tracker',
+    'SecureBank_Hub',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
