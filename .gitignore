@@ -1,7 +1,8 @@
-djangoproject/__pycache__/**
-hello_world_app/__pycache__/**
-hello_world_app/migrations
-hello_world_app2
+/djangoproject/__pycache__
+/hello_world_app/__pycache__
+/budget_tracker/migrations
+/budget_tracker/__pycache__
+/hello_world_app/migrations
 db.sqlite3
 manage.py
 nohup.out
