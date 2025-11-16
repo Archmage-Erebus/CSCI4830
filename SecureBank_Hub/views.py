@@ -8,6 +8,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from datetime import timedelta, datetime
 
+@api_view()
+def health(request):
+    healthInfo = {
+        'status': 'UP', 
+        'service': 'SecureBank Hub Backend',
+        'timestamp': datetime.now(),
+        'version': '0.0.1-SNAPSHOT'
+    }
+    return Response(healthInfo)
+
 class UserListCreate(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
