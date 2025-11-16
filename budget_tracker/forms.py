@@ -68,7 +68,7 @@ class FilterTrans(forms.Form):
                     self.add_error("search", "Please provide a name")
                 case "less": 
                     self.add_error("search", "Please provide a comparison value")
-                case "great": 
+                case "more": 
                     self.add_error("search", "Please provide a comparison value")
                 case "date": 
                     self.add_error("search", "Please provide a date and time")
