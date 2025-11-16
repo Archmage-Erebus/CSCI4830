@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hello_world_app',
-    'django_extensions',
+    # 'django_extensions',
     'budget_tracker',
     'SecureBank_Hub',
     'rest_framework',
