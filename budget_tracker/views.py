@@ -35,11 +35,12 @@ def trans_view(request, foreign_id):
     transactions = Transaction.objects.filter(budget_id=foreign_id)
 
     if request.method == "GET":
-        form = FilterTrans(request.GET)
-        if form.is_valid():
-            tag = form.cleaned_data["tag"]
-            search = form.cleaned_data["search"]
-            match form.cleaned_data["filter_by"]:
+        form = TransForm(budget_id=foreign_id)
+        filterT = FilterTrans(request.GET)
+        if filterT.is_valid():
+            tag = filterT.cleaned_data["tag"]
+            search = filterT.cleaned_data["search"]
+            match filterT.cleaned_data["filter_by"]:
                 case "name":
                     transactions = transactions.filter(name__icontains=search)
                 case "less":
@@ -50,20 +51,9 @@ def trans_view(request, foreign_id):
                     transactions = transactions.filter(timestamp__icontains=search)
                 case "tag":
                     transactions = transactions.filter(tag__iexact=tag)
-    else:
-        form = FilterTrans()
-
-    total = 0
-    for x in transactions:
-        total += x.amount
-    
-    return render(request, 'trans_list.html', {'form': form, 'id': foreign_id, 'transactions': transactions, 'total': total})
-
-def add_trans(request, foreign_id):
-    transactions = Transaction.objects.filter(budget_id=foreign_id)
-
-    if request.method == "POST":
+    elif request.method == "POST":
         form = TransForm(request.POST,budget_id=foreign_id)
+        filterT = FilterTrans()
         if form.is_valid():
             budget = get_object_or_404(Budget, id=foreign_id)
             budget.updateBalance(add=form.cleaned_data["amount"])
@@ -71,8 +61,29 @@ def add_trans(request, foreign_id):
             return redirect('trans_view', foreign_id)
     else:
         form = TransForm(budget_id=foreign_id)
+        filterT = FilterTrans()
 
-    return render(request, 'trans_add.html', {'form': form, 'transactions': transactions})
+    total = 0
+    for x in transactions:
+        total += x.amount
+    
+    return render(request, 'trans_list.html', {'form': form, 'filterT': filterT, 'transactions': transactions, 'total': total})
+
+# Deprecated function
+# def add_trans(request, foreign_id):
+#     transactions = Transaction.objects.filter(budget_id=foreign_id)
+
+#     if request.method == "POST":
+#         form = TransForm(request.POST,budget_id=foreign_id)
+#         if form.is_valid():
+#             budget = get_object_or_404(Budget, id=foreign_id)
+#             budget.updateBalance(add=form.cleaned_data["amount"])
+#             form.save()
+#             return redirect('trans_view', foreign_id)
+#     else:
+#         form = TransForm(budget_id=foreign_id)
+
+#     return render(request, 'trans_add.html', {'form': form, 'transactions': transactions})
 
 def edit_trans(request, trans_id):
     transaction = get_object_or_404(Transaction, id=trans_id)
