@@ -10,8 +10,14 @@
             <a href="{% url 'budget_view' %}">Return to budgets</a>
     </nav></header> 
 <h1>List of Transactions</h1> <h4></h4>
-<form method="GET">
+<form method="POST">
+    {% csrf_token %}
     {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+<p></p>
+<form method="GET">
+    {{ filterT.as_table }}
 <button type="submit">Filter</button>
 </form>
 <table>
@@ -21,7 +27,6 @@
         <th>Timestamp</th> 
         <th>Tag</th> 
         <th>Actions</th> 
-        <th><a href="{% url 'add_trans' id %}">Add</a></th> 
     </tr>
     {% for transaction in transactions %}
     <tr>
