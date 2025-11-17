@@ -78,6 +78,11 @@ class FilterTrans(forms.Form):
                             self.add_error("search", "Please provide a tag")
                         else:
                             self.cleaned_data["tag"] = search
+        elif (filter_by == "less" or filter_by == "more"):
+            try:
+                search = float(search)
+            except:
+                self.add_error("search", "Please provide a valid number")
             
 
 class BudgetForm(forms.ModelForm):
