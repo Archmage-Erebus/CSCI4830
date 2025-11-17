@@ -6,5 +6,4 @@
 /SecureBank_Hub/migrations
 /hello_world_app/migrations
 db.sqlite3
-manage.py
 nohup.out
